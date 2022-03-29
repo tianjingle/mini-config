@@ -1,0 +1,7 @@
+com\scaffold\client\helper\LocalHelper.class
+com\scaffold\client\core\MyCoinfg.class
+com\scaffold\client\ConfigFactory.class
+com\scaffold\client\helper\MyTask.class
+com\scaffold\client\IConfig.class
+com\scaffold\client\helper\RemoteHelper.class
+com\scaffold\client\IChangeListener.class

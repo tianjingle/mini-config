@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.scaffold.dao.ConfigModelMapper">
+
+    <select id="findByName" resultType="com.scaffold.dao.model.ConfigModel">
+        select * from config where env=#{env} and name = #{name}
+    </select>
+
+    <insert id="insert">
+        INSERT INTO config (`id`, `name`, `txt`, `env`, `disc`) VALUES (#{configModel.id}, #{configModel.name}, #{configModel.txt}, #{configModel.env}, '1');
+    </insert>
+
+    <update id="modify">
+        update config set txt=#{txt} where id=#{id}
+    </update>
+</mapper>
