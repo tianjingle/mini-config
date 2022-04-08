@@ -1,7 +1,6 @@
 package com.scaffold.client.helper;
 
 import com.scaffold.client.ConfigFactory;
-import com.scaffold.client.IConfig;
 
 import java.io.IOException;
 import java.security.MessageDigest;
@@ -39,19 +38,26 @@ public class MyTask implements Runnable{
      */
     @Override
     public void run() {
-        ConfigFactory.items.forEach((key,value)->{
-            String result = null;
-            try {
-                result = RemoteHelper.poll(ConfigFactory.env,key);
-                System.out.println(result);
-                String md5 = md5(result);
-                //如果配置发生变化，就重新拉去配置，装载到缓存，然后保存到本地文件中。
-                if (!md5.equals(value.getMd5())) {
-                    value.loadConfigRemote();
+        while (true) {
+            ConfigFactory.items.forEach((key, value) -> {
+                String result = null;
+                try {
+                    result = RemoteHelper.poll(ConfigFactory.env, key);
+                    System.out.println(result);
+                    String md5 = md5(result);
+                    //如果配置发生变化，就重新拉去配置，装载到缓存，然后保存到本地文件中。
+                    if (!md5.equals(value.getMd5())) {
+                        value.loadConfigRemote();
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
-            } catch (IOException e) {
-                e.printStackTrace();
+            });
+            try {
+                Thread.sleep(2000);
+            }catch (Exception exception){
+                exception.printStackTrace();
             }
-        });
+        }
     }
 }

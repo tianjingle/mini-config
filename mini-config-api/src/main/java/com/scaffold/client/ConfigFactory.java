@@ -45,10 +45,6 @@ public class ConfigFactory {
      */
     public static final Map<String,IConfig> items=new ConcurrentHashMap<String,IConfig>();
 
-    /**
-     * 初始化一个定时线程
-     */
-    public static ScheduledExecutorService service = Executors.newSingleThreadScheduledExecutor();
 
 
     /**
@@ -60,7 +56,9 @@ public class ConfigFactory {
             configPath = scanRootPath(localConfigPath);
         }
         doParseEnv();
-        service.scheduleAtFixedRate(new MyTask(), 20, 1, TimeUnit.SECONDS);
+        Thread thread=new Thread(new MyTask());
+        Runtime.getRuntime().addShutdownHook(thread);
+        thread.start();
     }
 
     /**

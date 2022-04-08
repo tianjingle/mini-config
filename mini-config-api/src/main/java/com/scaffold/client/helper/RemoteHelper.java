@@ -1,23 +1,14 @@
 package com.scaffold.client.helper;
 
 import com.alibaba.fastjson.JSONObject;
-import javafx.print.PageLayout;
 import sun.net.www.http.HttpClient;
 
-import javax.print.attribute.standard.MediaSize;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.ProtocolException;
 import java.net.URL;
-import java.nio.charset.Charset;
-import java.util.List;
-import java.util.Map;
-import java.util.zip.GZIPInputStream;
-import java.util.zip.InflaterInputStream;
 
 /**
  * @author jingletian
@@ -61,7 +52,6 @@ public class RemoteHelper {
 
     public static String poll(String env,String fileName) throws IOException {
         String url = POLL_URL+env+"/"+ fileName;
-        System.out.println(url);
         HttpURLConnection conn =  (HttpURLConnection) (new URL(url).openConnection());
         conn.setReadTimeout(5000);
         conn.setConnectTimeout(500000);
